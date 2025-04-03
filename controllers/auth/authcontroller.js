@@ -17,11 +17,11 @@ const register = async (req, res) => {
       // Optional: You can check which field caused the conflict
       const existingUser = userExists.rows[0];
       if (existingUser.email === email && existingUser.phone === phone) {
-          return res.status(400).json({ message: "User with this email and phone already exists" });
+          return apiResponce.success(res,{},"User with this email and phone already exists");
       } else if (existingUser.email === email) {
-          return res.status(400).json({ message: "User with this email already exists" });
+          return apiResponce.success(res,{},"User with this email already exists");
       } else {
-          return res.status(400).json({ message: "User with this phone number already exists" });
+          return apiResponce.success(res,{},"User with this phone number already exists");
       }
   }
 
