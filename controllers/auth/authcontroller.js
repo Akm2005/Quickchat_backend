@@ -49,7 +49,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     // Check if user exists
-    const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const user = await pool.query("SELECT * FROM users WHERE email = $1 OR phone = $1", [email]);
     if (user.rows.length === 0) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -61,7 +61,7 @@ const login = async (req, res) => {
     }
 
     // Generate JWT Token
-    const token = jwt.sign({ userId: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "7d" });
     apiResponce.success(res,{ token, user: user.rows[0]},"Login successful");
     // res.json({ message: "Login successful", token, user: user.rows[0] });
   } catch (error) {
