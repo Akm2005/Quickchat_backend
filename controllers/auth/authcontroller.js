@@ -51,13 +51,13 @@ const login = async (req, res) => {
     // Check if user exists
     const user = await pool.query("SELECT * FROM users WHERE email = $1 OR phone = $1", [email]);
     if (user.rows.length === 0) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return apiResponce.success(res,{},"Invalid credentials");
     }
 
     // Compare passwords
     const validPassword = await bcrypt.compare(password, user.rows[0].password);
     if (!validPassword) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return apiResponce.success(res,{},"Invalid credentials");
     }
 
     // Generate JWT Token
