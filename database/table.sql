@@ -5,4 +5,4 @@ CREATE TABLE users (
     phone VARCHAR(20) UNIQUE,
     password TEXT NOT NULL,
     profile_image TEXT
-);
+);a

@@ -5,8 +5,12 @@ const pool = require('./config/db');
 dotenv.config();
 
 const app = express();
+app.use((req, res, next) => {
+  console.log(`📥 ${req.method} ${req.originalUrl}`);
+  console.log("📝 Body:", req.body);
+  next();
+});
 app.use(express.json());
-
 app.use("/api/v1", indexroute);
 pool.connect()
   .then(() => console.log("✅ Connected to PostgreSQL"))
